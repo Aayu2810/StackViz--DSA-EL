@@ -14,14 +14,14 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, isActive = false, showResult 
   const getStatusIcon = () => {
     switch (task.status) {
       case 'completed':
-        return <CheckCircle2 className="w-4 h-4 text-neon-green" />;
+        return <CheckCircle2 className="w-4 h-4 text-primary" />;
       case 'processing':
         return (
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
           >
-            <Loader2 className="w-4 h-4 text-neon-cyan" />
+            <Loader2 className="w-4 h-4 text-foreground" />
           </motion.div>
         );
       default:
@@ -32,11 +32,11 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, isActive = false, showResult 
   const getStatusColor = () => {
     switch (task.status) {
       case 'completed':
-        return 'border-neon-green/30 bg-neon-green/5';
+        return 'border-primary/30 bg-accent';
       case 'processing':
-        return 'border-neon-cyan/50 bg-neon-cyan/10';
+        return 'border-foreground/30 bg-secondary';
       default:
-        return 'border-border bg-card/50';
+        return 'border-border bg-card';
     }
   };
 
@@ -49,13 +49,12 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, isActive = false, showResult 
       className={cn(
         'relative p-4 rounded-lg border transition-all duration-300',
         getStatusColor(),
-        isActive && 'ring-2 ring-neon-cyan/50 shadow-lg shadow-neon-cyan/10'
+        isActive && 'ring-2 ring-primary shadow-md'
       )}
     >
-      {/* Active indicator */}
       {isActive && (
         <motion.div
-          className="absolute -left-1 top-1/2 -translate-y-1/2 w-2 h-8 rounded-full bg-neon-cyan"
+          className="absolute -left-1 top-1/2 -translate-y-1/2 w-1 h-8 rounded-full bg-primary"
           layoutId="activeIndicator"
           transition={{ type: 'spring', stiffness: 400, damping: 30 }}
         />
@@ -71,8 +70,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task, isActive = false, showResult 
             </span>
             <span className={cn(
               'text-xs px-2 py-0.5 rounded-full font-medium',
-              task.status === 'completed' && 'bg-neon-green/20 text-neon-green',
-              task.status === 'processing' && 'bg-neon-cyan/20 text-neon-cyan',
+              task.status === 'completed' && 'bg-primary/20 text-primary',
+              task.status === 'processing' && 'bg-foreground/10 text-foreground',
               task.status === 'pending' && 'bg-muted text-muted-foreground'
             )}>
               {task.status}

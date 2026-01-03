@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Layers, Sparkles, Zap, Eye } from 'lucide-react';
+import { ArrowRight, Layers, Sparkles, Zap, Eye, GraduationCap } from 'lucide-react';
 import InfiniteGrid from '@/components/InfiniteGrid';
 import Navigation from '@/components/Navigation';
 import { heroTitle, heroSubtitle, heroCTA, staggerContainer, fadeInUp, springTransition } from '@/lib/animations';
@@ -23,8 +23,8 @@ const Hero: React.FC = () => {
             variants={fadeInUp}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel text-sm"
           >
-            <Sparkles className="w-4 h-4 text-neon-cyan" />
-            <span className="text-muted-foreground">Stack-Based LLM Reasoning</span>
+            <GraduationCap className="w-4 h-4 text-primary" />
+            <span className="text-muted-foreground">Stack-Based LLM Reasoning Research</span>
           </motion.div>
 
           {/* Main headline */}
@@ -42,8 +42,8 @@ const Hero: React.FC = () => {
             variants={heroSubtitle}
             className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto"
           >
-            Watch complex prompts decompose into subtasks, build a 3D stack, 
-            and process through <span className="text-neon-cyan font-medium">LIFO reasoning</span> in real-time.
+            Watch complex prompts decompose into subtasks, build a visual stack, 
+            and process through <span className="text-primary font-medium">LIFO reasoning</span> in real-time.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -53,11 +53,11 @@ const Hero: React.FC = () => {
           >
             <Link to="/demo">
               <motion.button
-                whileHover={{ scale: 1.05, y: -4 }}
+                whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={springTransition}
                 className="group flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-lg
-                         bg-primary text-primary-foreground neon-glow-purple
+                         bg-primary text-primary-foreground shadow-lg
                          hover:bg-primary/90 transition-colors"
               >
                 <Zap className="w-5 h-5" />
@@ -89,12 +89,12 @@ const Hero: React.FC = () => {
               { icon: Layers, label: '3D Stack Viz', desc: 'Watch LIFO in action' },
               { icon: Sparkles, label: 'Live Processing', desc: 'Real-time reasoning bars' },
               { icon: Eye, label: 'Full Transparency', desc: 'Explainable AI thinking' },
-            ].map((feature, index) => (
+            ].map((feature) => (
               <motion.div
                 key={feature.label}
                 variants={fadeInUp}
                 whileHover={{ y: -4 }}
-                className="glass-panel-hover p-4 text-center"
+                className="glass-panel-hover p-5 text-center"
               >
                 <feature.icon className="w-8 h-8 mx-auto mb-3 text-primary" />
                 <h3 className="font-semibold text-foreground mb-1">{feature.label}</h3>
@@ -104,7 +104,7 @@ const Hero: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Animated preview - simplified 2D stack */}
+        {/* Animated preview */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -132,11 +132,8 @@ const PreviewAnimation: React.FC = () => {
 
   return (
     <div className="relative">
-      {/* Decorative glow */}
-      <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
-      
-      <div className="relative glass-panel p-6 min-w-[280px]">
-        <div className="text-xs font-mono text-muted-foreground mb-4 text-center">
+      <div className="glass-panel p-6 min-w-[280px] shadow-lg">
+        <div className="text-xs font-mono text-muted-foreground mb-4 text-center uppercase tracking-wider">
           LIFO Stack Demo
         </div>
         
@@ -148,17 +145,17 @@ const PreviewAnimation: React.FC = () => {
             return (
               <motion.div
                 key={block}
-                initial={{ opacity: 0, scale: 0.8, y: -20 }}
+                initial={{ opacity: 0, scale: 0.9, y: -15 }}
                 animate={{
                   opacity: isVisible ? 1 : 0,
-                  scale: isVisible ? 1 : 0.8,
-                  y: isVisible ? 0 : -20,
+                  scale: isVisible ? 1 : 0.9,
+                  y: isVisible ? 0 : -15,
                 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 25 }}
                 className={`
                   px-4 py-3 rounded-lg text-center font-medium text-sm
                   ${isActive 
-                    ? 'stack-block-active text-foreground' 
+                    ? 'stack-block-active text-accent-foreground' 
                     : 'stack-block text-muted-foreground'
                   }
                 `}
@@ -170,8 +167,8 @@ const PreviewAnimation: React.FC = () => {
         </div>
         
         {/* Base */}
-        <div className="mt-4 pt-4 border-t border-border/50">
-          <div className="h-2 rounded-full bg-gradient-to-r from-neon-purple/50 to-neon-cyan/50" />
+        <div className="mt-4 pt-4 border-t border-border">
+          <div className="h-1 rounded-full bg-primary/30" />
         </div>
       </div>
     </div>

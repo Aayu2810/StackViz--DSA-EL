@@ -48,24 +48,12 @@ const PromptInput: React.FC<PromptInputProps> = ({ onSubmit, isProcessing }) => 
       >
         <div
           className={`
-            relative glass-panel overflow-hidden transition-all duration-300
-            ${isFocused ? 'ring-2 ring-primary/50' : ''}
+            glass-panel overflow-hidden transition-all duration-200
+            ${isFocused ? 'ring-2 ring-primary/50 shadow-md' : ''}
             ${isProcessing ? 'opacity-75' : ''}
           `}
         >
-          {/* Animated border gradient */}
-          <AnimatePresence>
-            {isFocused && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute inset-0 gradient-border rounded-xl pointer-events-none"
-              />
-            )}
-          </AnimatePresence>
-
-          <div className="relative p-4">
+          <div className="p-4">
             <textarea
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
@@ -77,8 +65,8 @@ const PromptInput: React.FC<PromptInputProps> = ({ onSubmit, isProcessing }) => 
               className="w-full bg-transparent text-foreground placeholder:text-muted-foreground resize-none focus:outline-none text-lg"
             />
             
-            <div className="flex items-center justify-between mt-3 pt-3 border-t border-border/50">
-              <span className="text-xs text-muted-foreground">
+            <div className="flex items-center justify-between mt-3 pt-3 border-t border-border">
+              <span className="text-xs text-muted-foreground font-mono">
                 {prompt.length} characters
               </span>
               
@@ -90,9 +78,9 @@ const PromptInput: React.FC<PromptInputProps> = ({ onSubmit, isProcessing }) => 
                 transition={springTransition}
                 className={`
                   flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium text-sm
-                  transition-all duration-300
+                  transition-all duration-200
                   ${prompt.trim() && !isProcessing
-                    ? 'bg-primary text-primary-foreground hover:bg-primary/90 neon-glow-purple'
+                    ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md'
                     : 'bg-muted text-muted-foreground cursor-not-allowed'
                   }
                 `}
@@ -132,12 +120,12 @@ const PromptInput: React.FC<PromptInputProps> = ({ onSubmit, isProcessing }) => 
                 key={index}
                 onClick={() => handleExampleClick(example.text)}
                 disabled={isProcessing}
-                whileHover={{ scale: 1.02, y: -2 }}
+                whileHover={{ scale: 1.02, y: -1 }}
                 whileTap={{ scale: 0.98 }}
                 transition={springTransition}
                 className="chip group"
               >
-                <Icon className="w-3.5 h-3.5 mr-1.5 text-primary group-hover:text-neon-cyan transition-colors" />
+                <Icon className="w-3.5 h-3.5 mr-1.5 text-primary" />
                 {example.category}
               </motion.button>
             );
