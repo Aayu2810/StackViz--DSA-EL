@@ -96,7 +96,7 @@ const DemoPage: React.FC = () => {
                   <div className="grid grid-cols-2 gap-4">
                     <div className="glass-panel p-4">
                       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
-                        <ArrowDown className="w-4 h-4 text-neon-cyan" />
+                        <ArrowDown className="w-4 h-4 text-primary" />
                         Stack Height
                       </div>
                       <div className="text-3xl font-bold text-foreground font-mono">
@@ -105,7 +105,7 @@ const DemoPage: React.FC = () => {
                     </div>
                     <div className="glass-panel p-4">
                       <div className="flex items-center gap-2 text-sm text-muted-foreground mb-1">
-                        <ArrowUp className="w-4 h-4 text-neon-green" />
+                        <ArrowUp className="w-4 h-4 text-primary" />
                         Completed
                       </div>
                       <div className="text-3xl font-bold text-foreground font-mono">
