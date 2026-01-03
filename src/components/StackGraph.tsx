@@ -9,7 +9,6 @@ interface StackGraphProps {
 }
 
 const StackGraph: React.FC<StackGraphProps> = ({ history, currentHeight }) => {
-  // Generate chart data from history
   const chartData = React.useMemo(() => {
     let height = 0;
     const data: { time: number; height: number; event: string }[] = [
@@ -34,7 +33,6 @@ const StackGraph: React.FC<StackGraphProps> = ({ history, currentHeight }) => {
       }
     });
 
-    // Add current state
     if (data.length > 0) {
       data.push({
         time: data.length,
@@ -66,7 +64,7 @@ const StackGraph: React.FC<StackGraphProps> = ({ history, currentHeight }) => {
     >
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-foreground text-sm">Stack Height Over Time</h3>
-        <span className="text-xs font-mono px-2 py-1 rounded bg-primary/20 text-primary">
+        <span className="text-xs font-mono px-2 py-1 rounded bg-primary/10 text-primary">
           Current: {currentHeight}
         </span>
       </div>
@@ -76,26 +74,26 @@ const StackGraph: React.FC<StackGraphProps> = ({ history, currentHeight }) => {
           <AreaChart data={chartData} margin={{ top: 5, right: 5, left: -20, bottom: 5 }}>
             <defs>
               <linearGradient id="stackGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(262, 83%, 58%)" stopOpacity={0.4} />
-                <stop offset="95%" stopColor="hsl(262, 83%, 58%)" stopOpacity={0} />
+                <stop offset="5%" stopColor="hsl(152, 45%, 25%)" stopOpacity={0.3} />
+                <stop offset="95%" stopColor="hsl(152, 45%, 25%)" stopOpacity={0} />
               </linearGradient>
             </defs>
             <XAxis 
               dataKey="time" 
-              tick={{ fontSize: 10, fill: 'hsl(215, 20%, 55%)' }}
-              axisLine={{ stroke: 'hsl(240, 10%, 18%)' }}
+              tick={{ fontSize: 10, fill: 'hsl(0, 0%, 40%)' }}
+              axisLine={{ stroke: 'hsl(0, 0%, 88%)' }}
               tickLine={false}
             />
             <YAxis 
-              tick={{ fontSize: 10, fill: 'hsl(215, 20%, 55%)' }}
-              axisLine={{ stroke: 'hsl(240, 10%, 18%)' }}
+              tick={{ fontSize: 10, fill: 'hsl(0, 0%, 40%)' }}
+              axisLine={{ stroke: 'hsl(0, 0%, 88%)' }}
               tickLine={false}
             />
             <Tooltip content={<CustomTooltip />} />
             <Area
               type="stepAfter"
               dataKey="height"
-              stroke="hsl(262, 83%, 58%)"
+              stroke="hsl(152, 45%, 25%)"
               strokeWidth={2}
               fill="url(#stackGradient)"
               animationDuration={300}

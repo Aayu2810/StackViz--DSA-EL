@@ -22,35 +22,30 @@ const HowItWorks: React.FC = () => {
       icon: FileText,
       title: 'Prompt Input',
       description: 'User enters a complex prompt requiring multi-step reasoning',
-      color: 'neon-orange',
       detail: 'The system receives natural language input that may contain nested sub-problems.',
     },
     {
       icon: SplitSquareVertical,
       title: 'Decomposition',
       description: 'AI breaks down the prompt into atomic subtasks',
-      color: 'neon-purple',
       detail: 'Using semantic analysis, the prompt is split into independent, executable units.',
     },
     {
       icon: Layers3,
       title: 'Stack Building',
       description: 'Subtasks are pushed onto a LIFO stack structure',
-      color: 'neon-cyan',
       detail: 'Tasks are ordered by dependency, with foundational tasks pushed first.',
     },
     {
       icon: Brain,
       title: 'LIFO Processing',
       description: 'Stack is processed top-down, last-in-first-out',
-      color: 'neon-green',
       detail: 'Each task is popped, processed by the LLM, and its result cached for dependent tasks.',
     },
     {
       icon: Merge,
       title: 'Result Synthesis',
       description: 'Completed task results are merged into final output',
-      color: 'neon-pink',
       detail: 'Results are combined respecting the original task dependencies and order.',
     },
   ];
@@ -107,7 +102,7 @@ const HowItWorks: React.FC = () => {
             className="relative"
           >
             {/* Connecting line */}
-            <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-neon-cyan to-neon-green hidden md:block" />
+            <div className="absolute left-8 top-0 bottom-0 w-px bg-border hidden md:block" />
 
             <div className="space-y-8">
               {steps.map((step, index) => (
@@ -120,16 +115,10 @@ const HowItWorks: React.FC = () => {
                     {/* Step number and icon */}
                     <div className="relative">
                       <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        className={`
-                          w-16 h-16 rounded-2xl flex items-center justify-center
-                          glass-panel border-2 border-${step.color}/50
-                        `}
-                        style={{
-                          boxShadow: `0 0 30px hsl(var(--${step.color}) / 0.3)`,
-                        }}
+                        whileHover={{ scale: 1.05 }}
+                        className="w-16 h-16 rounded-xl flex items-center justify-center glass-panel border-2 border-primary/30"
                       >
-                        <step.icon className={`w-7 h-7 text-${step.color}`} />
+                        <step.icon className="w-7 h-7 text-primary" />
                       </motion.div>
                       <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
                         {index + 1}
@@ -150,7 +139,6 @@ const HowItWorks: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Arrow between steps */}
                   {index < steps.length - 1 && (
                     <div className="hidden md:flex justify-center my-4 ml-8">
                       <ArrowRight className="w-5 h-5 text-muted-foreground rotate-90" />
@@ -173,11 +161,11 @@ const HowItWorks: React.FC = () => {
               variants={fadeInUp}
               className="text-2xl md:text-3xl font-bold text-center mb-8"
             >
-              <span className="gradient-text-purple-cyan">Key Benefits</span>
+              <span className="gradient-text">Key Benefits</span>
             </motion.h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {benefits.map((benefit, index) => (
+              {benefits.map((benefit) => (
                 <motion.div
                   key={benefit.title}
                   variants={fadeInUp}
@@ -205,11 +193,11 @@ const HowItWorks: React.FC = () => {
           >
             <Link to="/demo">
               <motion.button
-                whileHover={{ scale: 1.05, y: -4 }}
+                whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 transition={springTransition}
                 className="group inline-flex items-center gap-3 px-8 py-4 rounded-xl font-semibold text-lg
-                         bg-primary text-primary-foreground neon-glow-purple
+                         bg-primary text-primary-foreground shadow-lg
                          hover:bg-primary/90 transition-colors"
               >
                 <Zap className="w-5 h-5" />

@@ -14,12 +14,12 @@ const ReasoningBar: React.FC<ReasoningBarProps> = ({ progress, currentThinking, 
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <motion.div
-            animate={isActive ? { scale: [1, 1.2, 1] } : {}}
+            animate={isActive ? { scale: [1, 1.1, 1] } : {}}
             transition={{ duration: 1.5, repeat: Infinity }}
           >
             <Brain className="w-5 h-5 text-primary" />
           </motion.div>
-          <span className="font-medium text-sm">Reasoning Progress</span>
+          <span className="font-medium text-sm text-foreground">Reasoning Progress</span>
         </div>
         <span className="text-sm font-mono text-muted-foreground">
           {Math.round(progress)}%
@@ -46,7 +46,7 @@ const ReasoningBar: React.FC<ReasoningBarProps> = ({ progress, currentThinking, 
           <motion.span
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="inline-block w-2 h-2 rounded-full bg-neon-cyan"
+            className="inline-block w-2 h-2 rounded-full bg-primary"
           />
           <span className="text-sm text-muted-foreground font-mono truncate">
             {currentThinking}
