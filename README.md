@@ -399,10 +399,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact & Support
 
 - 🌐 **Live Demo:** [https://final-dsa-el.vercel.app/playground](https://final-dsa-el.vercel.app/playground)
-- 📧 **Email:** your.email@example.com
-- 🐦 **Twitter:** @yourusername
-- 💼 **LinkedIn:** [Your Name](https://linkedin.com/in/yourprofile)
-
+- 📧 **Email:** paayushi2005@gmail.com
 ---
 
 ## 🎯 Project Status
@@ -413,12 +410,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Roadmap
 
-- [ ] Add graph data structure visualization
-- [ ] Implement tree-based reasoning
-- [ ] Multi-language support (Hindi, Spanish)
-- [ ] Mobile app version
-- [ ] API for custom integrations
-- [ ] Video tutorial series
+- [1 ] Add graph data structure visualization
+- [2 ] Implement tree-based reasoning
+- [3 ] Multi-language support (Hindi, Spanish)
+- [4 ] Mobile app version
+- [5 ] API for custom integrations
+- [6 ] Video tutorial series
 
 ---
 
@@ -426,7 +423,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### ⭐ Star this repo if you find it helpful!
 
-**Made with ❤️ and ☕ by [Your Name]**
+**Made with ❤️ and ☕ by [Aayushi Priya, A V Kruthi Krishna]**
 
 *Transforming how students learn data structures, one stack at a time.*
 
