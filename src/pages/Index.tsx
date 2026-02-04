@@ -4,11 +4,18 @@ import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import InfiniteGrid from '@/components/InfiniteGrid';
 import { Button } from '@/components/ui/button';
-import { Layers, ArrowRight, GitCompare, Brain, Zap, Sparkles } from 'lucide-react';
+import { Layers, ArrowRight, GitCompare, Brain, Zap, Sparkles, BookOpen } from 'lucide-react';
 import { fadeInUp, staggerContainer } from '@/lib/animations';
 
 const Index: React.FC = () => {
   const features = [
+    {
+      icon: BookOpen,
+      title: 'Stack Theory',
+      description: 'Learn the fundamentals of stack data structures with interactive examples and real-world applications.',
+      link: '/stack-theory',
+      color: 'bg-blue-500/10 text-blue-600',
+    },
     {
       icon: Layers,
       title: 'Interactive Playground',
@@ -28,14 +35,14 @@ const Index: React.FC = () => {
       title: 'Chain of Thought',
       description: 'Explore nested stack frames and see how complex questions decompose.',
       link: '/chain-of-thought',
-      color: 'bg-emerald-600/10 text-emerald-700',
+      color: 'bg-purple-500/10 text-purple-600',
     },
     {
       icon: Zap,
       title: 'Multi-Stack Race',
-      description: 'Watch parallel reasoning paths compete, with weak branches getting pruned.',
+      description: 'Race multiple stacks against each other in real-time processing challenges.',
       link: '/multi-stack',
-      color: 'bg-emerald-700/10 text-emerald-800',
+      color: 'bg-orange-500/10 text-orange-600',
     },
   ];
 

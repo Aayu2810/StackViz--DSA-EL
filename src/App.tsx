@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import StackTheory from "./pages/StackTheory";
 import Playground from "./pages/Playground";
 import Comparison from "./pages/Comparison";
 import ChainOfThought from "./pages/ChainOfThought";
@@ -21,6 +22,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/stack-theory" element={<StackTheory />} />
           <Route path="/playground" element={<Playground />} />
           <Route path="/comparison" element={<Comparison />} />
           <Route path="/chain-of-thought" element={<ChainOfThought />} />

@@ -15,8 +15,8 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-// Lazy load 3D components
-const NestedStackVisualizer = React.lazy(() => import('@/components/NestedStackVisualizer'));
+// Lazy load components
+const NestedStackVisualizer = React.lazy(() => import('@/components/SimpleNestedStackVisualizer'));
 const NeuralNetworkVisualizer = React.lazy(() => import('@/components/NeuralNetworkVisualizer'));
 
 interface NestedTask {
@@ -83,9 +83,22 @@ const ChainOfThoughtPage: React.FC = () => {
     setNestedTasks([sampleDecomposition]);
     setHistory([]);
 
+    // Create a deep copy of the sample decomposition to track status
+    const updateTaskStatus = (task: NestedTask, status: 'pending' | 'processing' | 'completed'): NestedTask => {
+      return {
+        ...task,
+        status,
+        children: task.children.map(child => updateTaskStatus(child, 'pending'))
+      };
+    };
+
     // Simulate processing with nested stack operations
     const processTask = async (task: NestedTask, parentPath: string = '') => {
       const taskPath = parentPath ? `${parentPath} → ${task.title}` : task.title;
+      
+      // Update task status to processing
+      setNestedTasks(prev => updateTaskInTree(prev, task.id, 'processing'));
+      setCurrentDepth(task.depth);
       
       // Push
       setHistory(prev => [...prev, {
@@ -93,7 +106,6 @@ const ChainOfThoughtPage: React.FC = () => {
         task: { title: task.title, id: task.id },
         timestamp: Date.now(),
       }]);
-      setCurrentDepth(task.depth);
       
       await new Promise(resolve => setTimeout(resolve, 500));
       
@@ -105,12 +117,32 @@ const ChainOfThoughtPage: React.FC = () => {
       // Mark as completed
       await new Promise(resolve => setTimeout(resolve, 300));
       
+      // Update task status to completed
+      setNestedTasks(prev => updateTaskInTree(prev, task.id, 'completed'));
+      
       // Pop
       setHistory(prev => [...prev, {
         type: 'pop',
         task: { title: task.title, id: task.id },
         timestamp: Date.now(),
       }]);
+    };
+
+    // Helper function to update task status in the tree
+    const updateTaskInTree = (tasks: NestedTask[], taskId: string, status: 'pending' | 'processing' | 'completed'): NestedTask[] => {
+      return tasks.map(task => {
+        if (task.id === taskId) {
+          return {
+            ...task,
+            status,
+            children: task.children.map(child => ({ ...child, status: 'pending' }))
+          };
+        }
+        return {
+          ...task,
+          children: updateTaskInTree(task.children, taskId, status)
+        };
+      });
     };
 
     await processTask(sampleDecomposition);
@@ -134,7 +166,7 @@ const ChainOfThoughtPage: React.FC = () => {
     <InfiniteGrid>
       <Navigation />
       
-      <div className="min-h-screen pt-24 pb-12 px-4">
+      <div className="min-h-screen pt-24 pb-12 px-4 futuristic-grid">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <motion.div
@@ -142,7 +174,7 @@ const ChainOfThoughtPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-8"
           >
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold gradient-text mb-2">
               Inside the LLM's Mind
             </h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -189,14 +221,14 @@ const ChainOfThoughtPage: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="glass-panel p-6 mb-8"
+              className="glass-panel p-6 mb-8 accent-glow"
             >
               <div className="flex flex-col md:flex-row gap-4">
                 <Input
                   value={prompt}
                   onChange={(e) => setPrompt(e.target.value)}
                   placeholder="Ask a complex question... (e.g., How do I become a software engineer?)"
-                  className="flex-1"
+                  className="flex-1 futuristic-input"
                   disabled={isProcessing}
                 />
                 <div className="flex gap-2">
@@ -212,6 +244,7 @@ const ChainOfThoughtPage: React.FC = () => {
                     onClick={reset}
                     variant="outline"
                     disabled={isProcessing}
+                    className="glass-panel-hover"
                   >
                     <RotateCcw className="w-4 h-4" />
                   </Button>
@@ -231,7 +264,7 @@ const ChainOfThoughtPage: React.FC = () => {
               >
                 {/* Left - Dependency Graph */}
                 <div className="lg:col-span-3">
-                  <div className="glass-panel p-4">
+                  <div className="glass-panel p-4 accent-glow-strong">
                     <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
                       <GitBranch className="w-4 h-4 text-primary" />
                       Dependency Graph
@@ -252,7 +285,7 @@ const ChainOfThoughtPage: React.FC = () => {
 
                 {/* Center - 3D Visualization */}
                 <div className="lg:col-span-6">
-                  <div className="glass-panel overflow-hidden" style={{ height: '500px' }}>
+                  <div className="glass-panel overflow-hidden accent-glow-strong" style={{ height: '500px' }}>
                     <Suspense fallback={
                       <div className="w-full h-full flex items-center justify-center bg-muted/50">
                         <div className="text-muted-foreground">Loading 3D visualization...</div>
@@ -381,7 +414,16 @@ const ChainOfThoughtPage: React.FC = () => {
 
 // Dependency Tree Component
 const DependencyTree: React.FC<{ task: NestedTask; depth?: number }> = ({ task, depth = 0 }) => {
-  const colors = ['bg-primary', 'bg-emerald-400', 'bg-emerald-300'];
+  const getStatusColor = (status: 'pending' | 'processing' | 'completed') => {
+    switch (status) {
+      case 'processing':
+        return 'bg-yellow-400';
+      case 'completed':
+        return 'bg-green-400';
+      default:
+        return 'bg-muted-foreground/40';
+    }
+  };
   
   return (
     <div className="relative">
@@ -389,8 +431,10 @@ const DependencyTree: React.FC<{ task: NestedTask; depth?: number }> = ({ task, 
         className={`flex items-center gap-2 p-2 rounded-lg hover:bg-muted/50 transition-colors`}
         style={{ marginLeft: depth * 16 }}
       >
-        <div className={`w-3 h-3 rounded-full ${colors[Math.min(depth, 2)]}`} />
-        <span className="text-sm text-foreground truncate">{task.title}</span>
+        <div className={`w-3 h-3 rounded-full ${getStatusColor(task.status)} transition-colors duration-300`} />
+        <span className={`text-sm truncate ${task.status === 'processing' ? 'text-foreground font-medium' : 'text-muted-foreground'}`}>
+          {task.title}
+        </span>
       </div>
       {task.children.map(child => (
         <DependencyTree key={child.id} task={child} depth={depth + 1} />
