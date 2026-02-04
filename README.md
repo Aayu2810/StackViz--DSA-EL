@@ -399,7 +399,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact & Support
 
 - 🌐 **Live Demo:** [https://final-dsa-el.vercel.app/playground](https://final-dsa-el.vercel.app/playground)
-- 📧 **Email:** paayushi2005@gmail.com
+- 📧 **Email:** paayushi2005@gmail.com, avkruthikrishna.is24@rvce.edu.in
 ---
 
 ## 🎯 Project Status
